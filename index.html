@@ -3,189 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>29 Game - Junayed</title>
+    <title>29 Card Game - Junayed</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Allura&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: radial-gradient(circle, #0d3b11 0%, #050505 100%);
-            height: 100vh; display: flex; justify-content: center; align-items: center;
-            font-family: 'Orbitron', sans-serif; overflow: hidden; color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+            color: white;
         }
-        .game-table { position: relative; width: 100%; height: 100%; max-width: 500px; }
-        .player { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .card-slot { height: 90px; width: 70px; background: rgba(0, 0, 0, 0.45); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
-        .partner { top: 40px; left: 50%; transform: translateX(-50%); color: #ff80ab; }
-        .opp1 { left: 20px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.7); }
-        .opp2 { right: 20px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.7); }
-        .user { bottom: 120px; left: 50%; transform: translateX(-50%); color: #00e5ff; }
-        .play-area { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 180px; height: 180px; border: 2px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; }
-        .card { width: 70px; height: 100px; background: white; color: red; border-radius: 5px; display: flex; justify-content: center; align-items: center; font-size: 40px; font-weight: bold; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); }
-        .bidding-panel { position: absolute; bottom: 200px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 20px; padding: 10px 25px; display: flex; align-items: center; gap: 30px; }
-        .bid-btn { color: #00e5ff; background: none; border: none; font-weight: bold; font-family: 'Orbitron'; cursor: pointer; }
-        .footer { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); font-family: 'Allura', cursive; font-size: 32px; color: #ffc107; }
+
+        .game-table {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 600px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+        }
+
+        /* Player Styling */
+        .player {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .card-slot {
+            height: 80px;
+            width: 60px;
+            background: rgba(0, 0, 0, 0.45);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+
+        /* Positions */
+        .partner { top: 30px; left: 50%; transform: translateX(-50%); color: #ff80ab; }
+        .opp1 { left: 15px; top: 40%; transform: translateY(-50%); color: #b2ff59; }
+        .opp2 { right: 15px; top: 40%; transform: translateY(-50%); color: #b2ff59; }
+        .user { bottom: 100px; left: 50%; transform: translateX(-50%); color: #00e5ff; }
+
+        /* Board Central Area */
+        .board {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .played-card {
+            width: 65px;
+            height: 90px;
+            background: white;
+            color: black;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* Controls */
+        .controls {
+            position: absolute;
+            bottom: 150px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Orbitron';
+        }
+
+        .btn:hover { background: #00e5ff; color: black; }
+
+        .score-board {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 14px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Allura', cursive;
+            font-size: 28px;
+            color: #ffc107;
+        }
     </style>
 </head>
 <body>
+
+    <div class="score-board">
+        <div>Us: <span id="team1">0</span></div>
+        <div>Them: <span id="team2">0</span></div>
+        <div style="color: #ffc107; margin-top:5px;">Bid: <span id="currentBid">16</span></div>
+    </div>
+
     <div class="game-table">
-        <div class="player partner"><span>Fall In Love</span><div class="card-slot">👤</div></div>
-        <div class="player opp1"><span>Sanjana</span><div class="card-slot">👤</div></div>
-        <div class="player opp2"><span>Mahin</span><div class="card-slot)Slot">👤</div></div>
-        <div class="play-area"><div class="card">J</div></div>
-        <div class="bidding-panel"><button class="bid-btn">Double</button><span id="bidCount" style="color:#ffc107; font-size:22px;">16</span><button class="bid-btn" onclick="inc()">Bid</button></div>
-        <div class="player user"><span>@junayed_8768</span><div class="card-slot">👤</div></div>
+        <div class="player partner"><span>Fall In Love</span><div class="card-slot">🎴</div></div>
+        <div class="player opp1"><span>Sanjana</span><div class="card-slot">🎴</div></div>
+        <div class="player opp2"><span>Mahin</span><div class="card-slot">🎴</div></div>
+        
+        <div class="board">
+            <div id="cardOnTable" class="played-card">J</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="playCard()">Play Card</button>
+            <button class="btn" onclick="newBid()">Raise Bid</button>
+        </div>
+
+        <div class="player user">
+            <span>@junayed_8768</span>
+            <div class="card-slot" id="userCard">J</div>
+        </div>
+
         <div class="footer">Made By @junayed_8768</div>
     </div>
+
     <script>
-        let b = 16;
-        function inc() { if(b < 28) { b++; document.getElementById('bidCount').innerText = b; } }
+        let bid = 16;
+        let scoreUs = 0;
+        let scoreThem = 0;
+        const cards = ['J', '9', 'A', '10', 'K', 'Q', '8', '7'];
+
+        function playCard() {
+            // Randomly pick a card to simulate play
+            let randomCard = cards[Math.floor(Math.random() * cards.length)];
+            document.getElementById('cardOnTable').innerText = randomCard;
+            document.getElementById('userCard').innerText = randomCard;
+            
+            // Randomly update score for fun
+            if(Math.random() > 0.5) {
+                scoreUs += 3;
+                document.getElementById('team1').innerText = scoreUs;
+            } else {
+                scoreThem += 2;
+                document.getElementById('team2').innerText = scoreThem;
+            }
+        }
+
+        function newBid() {
+            if(bid < 28) {
+                bid++;
+                document.getElementById('currentBid').innerText = bid;
+            } else {
+                alert("Maximum bid 28 reached!");
+            }
+        }
     </script>
 </body>
-</html>  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        // Dark Forest Green & Matte Black Aesthetic
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            colors: [Color(0xFF0D3B11), Color(0xFF050505)],
-            center: Alignment.center,
-            radius: 1.2,
-          ),
-        ),
-        child: Stack(
-          children: [
-            // Top: Partner
-            Align(alignment: Alignment.topCenter, child: Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: _buildPlayer(partner, isPartner: true),
-            )),
-
-            // Left: Opponent 1
-            Align(alignment: Alignment.centerLeft, child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: _buildPlayer(opp1),
-            )),
-
-            // Right: Opponent 2
-            Align(alignment: Alignment.centerRight, child: Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: _buildPlayer(opp2),
-            )),
-
-            // Bottom: User
-            Align(alignment: Alignment.bottomCenter, child: Padding(
-              padding: const EdgeInsets.only(bottom: 120),
-              child: _buildPlayer(player, isUser: true),
-            )),
-
-            // Center Board: Played Cards Area
-            Center(child: _buildPlayArea()),
-
-            // Bidding Panel (Glassmorphism Effect)
-            _buildBiddingPanel(),
-
-            // Creator Branding: Made By @junayed_8768
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 25),
-                child: Text(
-                  "Made By @junayed_8768",
-                  style: GoogleFonts.allura( // Elegant Signature Font
-                    fontSize: 28,
-                    color: Colors.amberAccent.withOpacity(0.9),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPlayer(String name, {bool isUser = false, bool isPartner = false}) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          name,
-          style: GoogleFonts.orbitron( // Advanced Futuristic Font
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: isUser ? Colors.cyanAccent : (isPartner ? Colors.pinkAccent : Colors.white70),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          height: 90,
-          width: 70,
-          decoration: BoxDecoration(
-            color: Colors.black45,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.white24, width: 2),
-            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 10)],
-          ),
-          child: const Center(child: Icon(Icons.person, size: 40, color: Colors.white10)),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPlayArea() {
-    return Container(
-      height: 200,
-      width: 200,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.white10, width: 2),
-      ),
-      child: Center(
-        // High Quality "Real Bonus" style Card Sample
-        child: Container(
-          height: 100,
-          width: 70,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8, offset: Offset(4, 4))],
-          ),
-          child: Center(child: Text("J", style: TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold))),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBiddingPanel() {
-    return Positioned(
-      bottom: 180,
-      left: 50,
-      right: 50,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white10.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white24),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _bidButton("Double"),
-            Text("$currentBid", style: GoogleFonts.orbitron(fontSize: 22, color: Colors.amber)),
-            _bidButton("Bid"),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _bidButton(String text) {
-    return TextButton(
-      onPressed: () {},
-      child: Text(text, style: const TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold)),
-    );
-  }
-}
+</html>
