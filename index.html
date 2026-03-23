@@ -9,129 +9,75 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: radial-gradient(circle, #0d3b11 0%, #050505 100%);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Orbitron', sans-serif;
-            overflow: hidden;
-            color: white;
+            height: 100vh; display: flex; justify-content: center; align-items: center;
+            font-family: 'Orbitron', sans-serif; overflow: hidden; color: white;
         }
-
-        .game-table {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            max-width: 600px;
-            border: 2px solid rgba(255, 255, 255, 0.05);
-            border-radius: 50px;
+        .game-table { position: relative; width: 100%; height: 100%; max-width: 500px; }
+        
+        /* Players and Card Slots */
+        .player { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .card-slot { 
+            height: 85px; width: 65px; 
+            background: #1a1a1a; 
+            border: 2px solid rgba(255, 255, 255, 0.2); 
+            border-radius: 8px; 
+            display: flex; justify-content: center; align-items: center; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+            font-size: 35px; color: red; font-weight: bold;
         }
-
-        /* Player Styling */
-        .player {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-        .card-slot {
-            height: 80px;
-            width: 60px;
-            background: rgba(0, 0, 0, 0.45);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-        }
-
-        /* Positions */
+        
+        /* Player Positions */
         .partner { top: 30px; left: 50%; transform: translateX(-50%); color: #ff80ab; }
         .opp1 { left: 15px; top: 40%; transform: translateY(-50%); color: #b2ff59; }
         .opp2 { right: 15px; top: 40%; transform: translateY(-50%); color: #b2ff59; }
         .user { bottom: 100px; left: 50%; transform: translateX(-50%); color: #00e5ff; }
 
         /* Board Central Area */
-        .board {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .play-area { 
+            position: absolute; top: 40%; left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 170px; height: 170px; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; 
+        }
+        .main-card { 
+            width: 75px; height: 105px; 
+            background: white; color: black; 
+            border-radius: 6px; display: flex; justify-content: center; align-items: center; 
+            font-size: 45px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.8); 
         }
 
-        .played-card {
-            width: 65px;
-            height: 90px;
-            background: white;
-            color: black;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        /* Controls - Moved Lower as requested */
+        .controls { 
+            position: absolute; bottom: 35px; 
+            width: 100%; display: flex; justify-content: center; gap: 15px; 
         }
-
-        /* Controls */
-        .controls {
-            position: absolute;
-            bottom: 150px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+        button { 
+            background: rgba(0, 229, 255, 0.1); 
+            border: 1px solid #00e5ff; 
+            color: #00e5ff; padding: 10px 20px; 
+            border-radius: 25px; cursor: pointer; 
+            font-family: 'Orbitron'; font-weight: bold;
         }
+        button:active { background: #00e5ff; color: black; }
 
-        .btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid #00e5ff;
-            color: #00e5ff;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Orbitron';
+        .score-board { 
+            position: absolute; top: 20px; left: 20px; 
+            background: rgba(0,0,0,0.6); padding: 10px; border-radius: 8px; 
+            font-size: 13px; border: 1px solid rgba(255,255,255,0.1);
         }
-
-        .btn:hover { background: #00e5ff; color: black; }
-
-        .score-board {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 14px;
-            background: rgba(0,0,0,0.5);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Allura', cursive;
-            font-size: 28px;
-            color: #ffc107;
+        .footer { 
+            position: absolute; bottom: 5px; left: 50%; 
+            transform: translateX(-50%); font-family: 'Allura', cursive; 
+            font-size: 24px; color: #ffc107; opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
     <div class="score-board">
-        <div>Us: <span id="team1">0</span></div>
-        <div>Them: <span id="team2">0</span></div>
-        <div style="color: #ffc107; margin-top:5px;">Bid: <span id="currentBid">16</span></div>
+        <div>Us: <span id="s1">0</span> | Them: <span id="s2">0</span></div>
+        <div style="color: #ffc107; margin-top: 5px;">Bid: <span id="bVal">16</span></div>
     </div>
 
     <div class="game-table">
@@ -139,51 +85,52 @@
         <div class="player opp1"><span>Sanjana</span><div class="card-slot">🎴</div></div>
         <div class="player opp2"><span>Mahin</span><div class="card-slot">🎴</div></div>
         
-        <div class="board">
-            <div id="cardOnTable" class="played-card">J</div>
-        </div>
-
-        <div class="controls">
-            <button class="btn" onclick="playCard()">Play Card</button>
-            <button class="btn" onclick="newBid()">Raise Bid</button>
+        <div class="play-area">
+            <div id="centerCard" class="main-card" style="color: red;">J</div>
         </div>
 
         <div class="player user">
             <span>@junayed_8768</span>
-            <div class="card-slot" id="userCard">J</div>
+            <div class="card-slot" id="userCard" style="color: #00e5ff;">J</div>
+        </div>
+
+        <div class="controls">
+            <button onclick="play()">Play Card</button>
+            <button onclick="bid()">Raise Bid</button>
         </div>
 
         <div class="footer">Made By @junayed_8768</div>
     </div>
 
     <script>
-        let bid = 16;
+        let currentBid = 16;
         let scoreUs = 0;
-        let scoreThem = 0;
-        const cards = ['J', '9', 'A', '10', 'K', 'Q', '8', '7'];
+        const cards = ['J', '9', 'A', '10', 'K', 'Q'];
+        const colors = ['red', 'black'];
 
-        function playCard() {
-            // Randomly pick a card to simulate play
-            let randomCard = cards[Math.floor(Math.random() * cards.length)];
-            document.getElementById('cardOnTable').innerText = randomCard;
-            document.getElementById('userCard').innerText = randomCard;
+        function play() {
+            // Generate Random Card and Color
+            let card = cards[Math.floor(Math.random() * cards.length)];
+            let color = colors[Math.floor(Math.random() * colors.length)];
             
-            // Randomly update score for fun
-            if(Math.random() > 0.5) {
-                scoreUs += 3;
-                document.getElementById('team1').innerText = scoreUs;
-            } else {
-                scoreThem += 2;
-                document.getElementById('team2').innerText = scoreThem;
-            }
+            // Show card on board
+            const center = document.getElementById('centerCard');
+            center.innerText = card;
+            center.style.color = color;
+            
+            // Update User Slot
+            document.getElementById('userCard').innerText = card;
+            document.getElementById('userCard').style.color = color;
+
+            // Simple score logic
+            scoreUs += Math.floor(Math.random() * 3);
+            document.getElementById('s1').innerText = scoreUs;
         }
 
-        function newBid() {
-            if(bid < 28) {
-                bid++;
-                document.getElementById('currentBid').innerText = bid;
-            } else {
-                alert("Maximum bid 28 reached!");
+        function bid() {
+            if(currentBid < 28) {
+                currentBid++;
+                document.getElementById('bVal').innerText = currentBid;
             }
         }
     </script>
