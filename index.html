@@ -1,0 +1,184 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+void main() {
+  runApp(const TwentyNineGame());
+}
+
+class TwentyNineGame extends StatelessWidget {
+  const TwentyNineGame({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: const GameTable(),
+    );
+  }
+}
+
+class GameTable extends StatefulWidget {
+  const GameTable({super.key});
+
+  @override
+  State<GameTable> createState() => _GameTableState();
+}
+
+class _GameTableState extends State<GameTable> {
+  // Hardcoded Names as per your request
+  final String player = "@junayed_8768";
+  final String partner = "Fall In Love";
+  final String opp1 = "Sanjana";
+  final String opp2 = "Mahin";
+
+  int currentBid = 16;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        // Dark Forest Green & Matte Black Aesthetic
+        decoration: const BoxDecoration(
+          gradient: RadialGradient(
+            colors: [Color(0xFF0D3B11), Color(0xFF050505)],
+            center: Alignment.center,
+            radius: 1.2,
+          ),
+        ),
+        child: Stack(
+          children: [
+            // Top: Partner
+            Align(alignment: Alignment.topCenter, child: Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: _buildPlayer(partner, isPartner: true),
+            )),
+
+            // Left: Opponent 1
+            Align(alignment: Alignment.centerLeft, child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: _buildPlayer(opp1),
+            )),
+
+            // Right: Opponent 2
+            Align(alignment: Alignment.centerRight, child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: _buildPlayer(opp2),
+            )),
+
+            // Bottom: User
+            Align(alignment: Alignment.bottomCenter, child: Padding(
+              padding: const EdgeInsets.only(bottom: 120),
+              child: _buildPlayer(player, isUser: true),
+            )),
+
+            // Center Board: Played Cards Area
+            Center(child: _buildPlayArea()),
+
+            // Bidding Panel (Glassmorphism Effect)
+            _buildBiddingPanel(),
+
+            // Creator Branding: Made By @junayed_8768
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 25),
+                child: Text(
+                  "Made By @junayed_8768",
+                  style: GoogleFonts.allura( // Elegant Signature Font
+                    fontSize: 28,
+                    color: Colors.amberAccent.withOpacity(0.9),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlayer(String name, {bool isUser = false, bool isPartner = false}) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          name,
+          style: GoogleFonts.orbitron( // Advanced Futuristic Font
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: isUser ? Colors.cyanAccent : (isPartner ? Colors.pinkAccent : Colors.white70),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          height: 90,
+          width: 70,
+          decoration: BoxDecoration(
+            color: Colors.black45,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.white24, width: 2),
+            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 10)],
+          ),
+          child: const Center(child: Icon(Icons.person, size: 40, color: Colors.white10)),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPlayArea() {
+    return Container(
+      height: 200,
+      width: 200,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.white10, width: 2),
+      ),
+      child: Center(
+        // High Quality "Real Bonus" style Card Sample
+        child: Container(
+          height: 100,
+          width: 70,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 8, offset: Offset(4, 4))],
+          ),
+          child: Center(child: Text("J", style: TextStyle(color: Colors.red, fontSize: 30, fontWeight: FontWeight.bold))),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBiddingPanel() {
+    return Positioned(
+      bottom: 180,
+      left: 50,
+      right: 50,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white10.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white24),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _bidButton("Double"),
+            Text("$currentBid", style: GoogleFonts.orbitron(fontSize: 22, color: Colors.amber)),
+            _bidButton("Bid"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _bidButton(String text) {
+    return TextButton(
+      onPressed: () {},
+      child: Text(text, style: const TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold)),
+    );
+  }
+}
